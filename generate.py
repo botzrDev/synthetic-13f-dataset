@@ -141,8 +141,10 @@ for mgr in MANAGERS:
 
         # ground-truth changes vs previous quarter
         if prev_holdings is not None:
+            # sorted() makes the answer-key row order deterministic across runs
+            # (set iteration order for strings varies with PYTHONHASHSEED)
             all_cusips = set(prev_holdings) | set(holdings)
-            for cusip in all_cusips:
+            for cusip in sorted(all_cusips):
                 sec = sec_by_cusip[cusip]
                 before = prev_holdings.get(cusip)
                 after = holdings.get(cusip)
